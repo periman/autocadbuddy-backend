@@ -1,14 +1,14 @@
+from flask import Flask, request, jsonify, send_file, render_template, send_from_directory
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 import os
 import sys
 import json
 import uuid
 import shutil
 from datetime import datetime, timedelta
-from flask import Flask, request, jsonify, send_file, render_template, send_from_directory
-from flask_cors import CORS
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.utils import secure_filename
 
 # Initialize Flask app
 app = Flask(__name__, static_folder='static', static_url_path='')
