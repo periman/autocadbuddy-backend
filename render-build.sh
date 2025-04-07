@@ -1,30 +1,17 @@
 #!/bin/bash
-set -e  # Exit on any error
+set -e  # Exit on errors
 
-# System dependencies (critical for numpy/opencv)
-apt-get update && apt-get install -y \
-    gfortran \
-    libopenblas-dev \
-    liblapack-dev \
-    libatlas-base-dev \
-    libhdf5-dev \
-    libjpeg-dev \
-    libpng-dev \
-    libtiff-dev \
-    libavcodec-dev \
-    libavformat-dev \
-    libswscale-dev \
-    libv4l-dev \
-    libxvidcore-dev \
-    libx264-dev \
-    libgtk-3-dev \
-    libcanberra-gtk3-module \
-    libsm6 \
-    libxext6 \
-    libgl1-mesa-glx
+# Force Python 3.11.11 using pyenv
+PYTHON_VERSION="3.11.11"
+curl https://pyenv.run | bash
+export PATH="$HOME/.pyenv/bin:$PATH"
+pyenv install $PYTHON_VERSION
+pyenv global $PYTHON_VERSION
 
-# Explicitly upgrade pip/setuptools (Render's default is often outdated)
-python -m pip install --upgrade pip setuptools wheel
+# Install system dependencies
+sudo apt-get update && sudo apt-get install -y \
+    gfortran libopenblas-dev liblapack-dev
 
-# Install requirements with NO CACHE (avoid corrupted wheels)
-pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
